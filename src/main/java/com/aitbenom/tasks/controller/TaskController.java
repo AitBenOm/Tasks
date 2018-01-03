@@ -2,10 +2,7 @@ package com.aitbenom.tasks.controller;
 
 import com.aitbenom.tasks.domain.Task;
 import com.aitbenom.tasks.service.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -21,11 +18,16 @@ public class TaskController {
     @GetMapping(value = {"","/"})
     public Iterable<Task> list(){
 
+        for(Task task : taskService.list()){
+            System.out.println(task);
+        }
         return this.taskService.list();
+
     }
 
     @PostMapping("/save")
-    public Task saveTask (Task task){
+    public Task saveTask (@RequestBody Task task){
+        System.out.println(task);
         return  taskService.save(task);
     }
 }
